@@ -2,7 +2,7 @@ package Map;
 
 import java.util.WeakHashMap;
 
-public class WeakHashMapDemo1 {
+public class WeakHashMapDemo1  {
 
     public static void main(String[] args) {
         WeakHashMap<String, Image> imageCache = new WeakHashMap<>();

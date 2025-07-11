@@ -41,7 +41,9 @@ public class IdentityHashMapDemo {
         Map<String, Integer> map = new IdentityHashMap<>();
         map.put(key1, 1);
         map.put(key2, 2);
-        System.out.println(key1.equals(key2));
+        System.out.println("Using '.equals()' method: "+key1.equals(key2));
+        System.out.println("Using '==' operator method: "+(key1 == key2));
+        System.out.println("Size of the IdentityHashMap:- "+map.size());
         System.out.println(map);
     }
 }
