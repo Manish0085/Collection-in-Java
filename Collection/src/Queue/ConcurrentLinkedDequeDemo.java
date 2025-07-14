@@ -15,6 +15,6 @@ public class ConcurrentLinkedDequeDemo {
         System.out.println(deque);
 
         String first = deque.removeFirst();
-        String last = deque.removeLast();
+        deque.removeLast()
     }
 }
