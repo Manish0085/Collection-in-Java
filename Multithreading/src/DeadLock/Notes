@@ -1,0 +1,16 @@
+
+
+Deadlock:
+---------
+    Deadlock is a situation in multithreading where two or more threads are blocked forever, waiting
+    for each other to release a resource. This typically occurs when two or more threads have a cicular
+    dependencies on a set of locks.
+
+
+    Deadlock typically occurs when four conditions are met simultaneously:
+
+        --> Mutual Exclusion: Only one thread can access one resource at a time.
+        --> Hold and wait: A thread holding at least one resource is waiting to acquire
+                           additional resource held by another threads.
+        --> No Preemption: Resource cannot be forcibly taken from threads holding them.
+        --> Circular wait: A Set of threads is waiting for each other in a circular wait.

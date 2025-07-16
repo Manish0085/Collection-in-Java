@@ -1,0 +1,69 @@
+
+
+Lock in Java:
+--------------
+
+    In Java Multithreading, a "Lock" is a interface from "java.util.concurrent.locks" package
+    that provides more flexible and powerful thread synchronization than the "synchronized" keyword.
+
+Why use Lock Instead of synchronization ?
+------------------------------------------
+
+    while "synchronized" is simple, "Lock" gives you:
+        --> Better control (try locking, timed locking, interruptible locking)
+        --> Fine-grained control over shared resources
+        --> the ability to manually acquire/release locks
+
+Lock Interface and its implementation:
+---------------------------------------
+
+    import java.util.concurrent.locks.Lock;
+    import java.util.concurrent.locks.ReentrantLock;
+
+    The most common implementation is "Reentrant", which allows the same thread
+    to acquire the lock multiple times.
+
+
+
+there are two types of locks:
+-----------------------------
+    --> Intrinsic Locks
+    --> Extrinsic Locks
+
+    ---> Intrinsic locks are built into every java object. You don't see them,
+         but they are there. When you use a synchronized keyword you are using
+         these automatic locks.
+
+    ---> Extrinsic are more advanced locks you can control yourself using the Lock
+         class from "java.util.concurrent.locks". You explicitly say when to lock and unlock,
+         giving you more control over how and when people can write in the notebook.
+
+
+Key Methods of "Lock" interface:
+--------------------------------
+
+    lock()                      Acquires the lock(blocks if already held)
+    unlock()                    Releases the lock
+    tryLock()                   tries to acquire without blocking
+    tryLock(timeout, unit)      tries to acquire the lock within a timeout
+    lockInterruptibly()         Acquires lock unless thread is interrupted
+
+
+"Reentrant" vs "synchronization"
+--------------------------------
+
+        Feature                     synchronization                     Reentrant
+        -------                     ----------------                    ----------
+
+        Lock Acquisition                Implicit                        Explicit via lock()
+        Lock release                    Automatic                       Manual via unlock()
+        try acquiring lock                 No                              tryLock()
+        Interruptible                      No                              lockInterruptibly()
+        fairness policy                    No                               Optional
+        condition variables              No(wait/notify)                    newCondition()
+
+
+Important:
+----------
+    Always call "unlock()" in a "finally" block to avoid deadlock if an exception occurs while the lock is held
+
