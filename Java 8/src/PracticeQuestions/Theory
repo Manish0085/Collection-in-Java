@@ -1,0 +1,32 @@
+
+What is Optional<T> ?
+---------------------
+
+        Optional is a container object introduced in Java8 that may or may not contain a
+        non-null value.
+
+why it is useful ?
+------------------
+
+    --> Helps to avoid "NullPointerException.
+    --> Make your code more readable and safer by forcing you to handle null values
+        explicitly.
+    --> Encourages functional-style programming.
+
+How do you check if an Optional has a value or not ?
+----------------------------------------------------
+
+        Optional<String> name = Optional.of("Some String Value");
+
+        if(name.isPresent())
+            System.out.println("Value: "+ name.get());
+        else
+            System.out.println(No value present);
+
+
+    isPresent() --> checks if a value is present.
+    get() --> retrieves the value(only safe if isPresent() is true).
+    Better Alternative:
+    -------------------
+
+        name.isPresent(System.out::println);
