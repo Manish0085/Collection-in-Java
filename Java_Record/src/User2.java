@@ -23,7 +23,7 @@
             - generally it generates "private final" field, generally called "record component
             - we cannot add more instance field.
             - All Instance fields must be defined in record header only called "Transparent Data carrier"
-            - But you define static fields, as they don't belong to the individual instance. So each USer is Still immutable
+            - But you can define static fields, as they don't belong to the individual instance. So each USer is Still immutable
             - Automatically generates "canonical constructor", means constructor that takes all record component.
             - We can override the canonical constructor if needed.
             - We can have more constructors with different parameters  list, but directly or in-directly they must invoke canonical constructor.

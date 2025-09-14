@@ -71,7 +71,9 @@ public final class User1 {
 
 2. All records extend `java.lang.Record` implicitly.
     - This allows the Java framework to identify whether a class is a record using:
+   ```
       getSuperClass() == java.lang.Record.class
+   ```
 
 3. Since Java does not support multiple inheritance,
    extending any other class is not allowed for records.
@@ -83,6 +85,13 @@ public final class User1 {
 - Initialized via the canonical constructor.
 - We cannot define additional instance fields outside the record header.
 - However, static fields are allowed (since they don’t belong to instances).
+```
+    public record User2(String name, int age) {
+
+    // String lastname; // not allowed
+
+    public static String lastname;
+```
 
 ### ⚙️ Constructors in Records:
 
@@ -99,3 +108,23 @@ public final class User1 {
 - They reduce boilerplate code (no need to write getters, equals, hashCode, toString).
 
 
+### Nested Record:
+
+- So in records, we can also create nested records, which can be private/protected, public
+  like nested classes.
+- Only difference is, in record static nested record are possible and non-static nested records
+  are not possible.
+     
+```
+    public record NestedRecordUser(String name, int age) {
+
+        // by default iit is static
+        record NestedAddressRecord(){
+
+            public void display(){
+                System.out.println("Hello inside  nested static record");
+            }
+        }
+    }
+
+```
