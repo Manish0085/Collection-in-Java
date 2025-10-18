@@ -6,7 +6,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class ExplicitLock {
 
-    private int balance = 100;
+    private int balance = 1000;
 
 
     private final Lock lock = new ReentrantLock();

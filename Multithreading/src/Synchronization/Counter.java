@@ -10,7 +10,7 @@ public class Counter {
 
 //    public void increment(){
 //        count++;
-//    }  Race Condition
+//    }  // Race Condition
 
     public int getCount(){
         return count;

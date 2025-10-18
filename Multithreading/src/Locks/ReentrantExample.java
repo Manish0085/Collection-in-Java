@@ -24,6 +24,7 @@ public class ReentrantExample {
             System.out.println("Inner method");
         } finally {
             lock.unlock();
+           // lock.unlock();
         }
     }
 
@@ -31,5 +32,13 @@ public class ReentrantExample {
         ReentrantExample example = new ReentrantExample();
         example.outerMethod();
     }
+
+
+
+
+    /*
+
+        -> ReentrantLock maintains the count of lock.
+     */
 
 }

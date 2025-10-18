@@ -16,7 +16,7 @@ public class UnfairLockExample {
             Thread.currentThread().interrupt();
         }finally {
             unfairLock.unlock();
-            System.out.println(Thread.currentThread().getName() + "released the lock");
+            System.out.println(Thread.currentThread().getName() + " released the lock");
         }
     }
 
@@ -38,5 +38,12 @@ public class UnfairLockExample {
         t1.start();
         t2.start();
         t3.start();
+//        try {
+//            t1.join();
+//            t2.join();
+//            t3.join();
+//        } catch (Exception e){
+//
+//        }
     }
 }
