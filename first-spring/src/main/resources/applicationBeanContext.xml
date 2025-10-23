@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- bean definitions here -->
+
+    <bean id="myBean" class="com.paypal.demo.GreetingService">
+<!--        <property name="isolation">-->
+<!--            <bean id="java.sql.Connection.TRANSACTION_SERIALIZABLE"-->
+<!--                  class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean" />-->
+<!--        </property>-->
+    </bean>
+
+
+    <bean id="EmailService" class="com.paypal.loose.EmailService"></bean>
+    <bean id="SMSService" class="com.paypal.loose.SMSService"></bean>
+    <bean id="UserEmailService" class="com.paypal.loose.UserService">
+        <property name="notificationService" ref="EmailService"/>
+    </bean>
+
+    <bean id="UserSMSService" class="com.paypal.loose.UserService">
+        <constructor-arg ref="SMSService" />
+    </bean>
+
+</beans>
