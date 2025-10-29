@@ -1,7 +1,7 @@
 package com.demo.first;
 
+import com.demo.first.app.User;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
