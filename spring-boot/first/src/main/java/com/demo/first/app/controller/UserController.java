@@ -18,42 +18,77 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user){
-        userService.createUser(user);
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(user);
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        User createdUser = userService.createUser(user);
+        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<User> updateUser(@RequestBody User user){
-        userService.updateUser(user);
-        return ResponseEntity
-                .status(HttpStatus.ACCEPTED)
-                .body(user);
+    // 1 -> John, john@email.com
+    // 1 -> Alice, john@email.com
+    @PutMapping
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
+        User updated = userService.updateUser(user);
+        if (updated == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return ResponseEntity.ok(updated);
     }
 
-
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Boolean> deleteUser(@PathVariable int id){
-        boolean result = userService.deleteUser(id);
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(result);
+    // /user/1 /user/2 /user/3
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable int id) {
+        boolean isDeleted = userService.deleteUser(id);
+        if (!isDeleted)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return ResponseEntity.noContent().build();
     }
+
+//    @GetMapping({"/users", "/user/{id}"})
 
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers(){
-        List<User> users = userService.getAllUsers();
-        return ResponseEntity.ok(users);
+    public List<User> getUsers() {
+        return userService.getAllUsers();
     }
 
-
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable int id){
+    // /user/100, /user/400
+    @GetMapping("/{userId}")
+    public ResponseEntity<User> getUser(
+            @PathVariable(value = "userId", required = false) int id){
         User user = userService.getUserById(id);
+        if (user == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         return ResponseEntity.ok(user);
     }
 
 
+    @GetMapping("/{userId}/orders/{orderId}")
+    public ResponseEntity<User> getUserOrder(
+            @PathVariable("userId") int id,
+            @PathVariable int orderId
+    ){
+        User user = userService.getUserById(id);
+        if (user == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return ResponseEntity.ok(user);
+    }
+
+    // /search?name=john
+    @GetMapping("/search")
+    public ResponseEntity<List<User>> searchUsers(
+            @RequestParam(required = false, defaultValue = "alice") String name,
+            @RequestParam(required = false, defaultValue = "email") String email
+    ) {
+
+        return ResponseEntity.ok(userService.searchUsers(name, email));
+    }
+
+
+    @GetMapping("/info/{id}")
+    public String getInfo(
+            @PathVariable int id,
+            @RequestParam String name,
+            @RequestHeader("User-Agent") String userAgent) {
+        return "User Agent: " + userAgent
+                + " : " + id
+                + " : " + name;
+    }
 }

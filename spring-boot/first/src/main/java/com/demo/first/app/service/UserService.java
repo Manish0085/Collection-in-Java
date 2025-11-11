@@ -4,38 +4,41 @@ import com.demo.first.app.exception.UserNotFoundException;
 import com.demo.first.app.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Service
 public class UserService {
-
-    private final Map<Integer, User> userDb = new ConcurrentHashMap<>();
+    private Map<Integer, User> userDb = new ConcurrentHashMap<>();
     private final Logger logger = LoggerFactory.getLogger(UserService.class);
 
-    public User createUser(User user){
-        logger.info("Creating User... info");
+    public User createUser(User user) {
+        logger.info("Creating user.... INFO");
+        logger.debug("Creating user.... DEBUG");
+        logger.trace("Creating user.... TRACE");
+        logger.warn("Creating user.... WARN");
+        logger.error("Creating user.... ERROR");
+        System.out.println(user.getEmail());
         userDb.putIfAbsent(user.getId(), user);
         return user;
     }
 
-
-    public User updateUser(User user){
-        if (!userDb.containsKey(user.getId())){
-            logger.error("Error when finding user with Id: {}", user.getId());
-            throw  new UserNotFoundException("User with ID: " + user.getId() + " does not exists");
+    public User updateUser(User user) {
+        if (!userDb.containsKey(user.getId())) {
+            logger.error("Error when finding user with id {} ", user.getId());
+            throw new UserNotFoundException("User with ID " + user.getId() + " does not exist");
         }
         userDb.put(user.getId(), user);
         return user;
     }
 
-    public boolean deleteUser(int id){
-        if (!userDb.containsKey(id)){
-            logger.error("Error when finding user with Id: {}", id);
-            throw  new UserNotFoundException("User with ID: " + id + " does not exists");
-        }
+    public boolean deleteUser(int id) {
+        if (!userDb.containsKey(id))
+            throw new UserNotFoundException("User with ID " + id + " does not exist");
         userDb.remove(id);
         return true;
     }
@@ -47,10 +50,6 @@ public class UserService {
     }
 
     public User getUserById(int id) {
-        if (!userDb.containsKey(id)){
-            logger.error("Error when finding user with Id: {}", id);
-            throw  new UserNotFoundException("User with ID: " + id + " does not exists");
-        }
         return userDb.get(id);
     }
 
